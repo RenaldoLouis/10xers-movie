@@ -29,9 +29,24 @@ const getAllGenres = async () => {
     }
 };
 
+const getMoviesByGenre = async (data) => {
+    try {
+        const res = await api.get(`${baseApi}discover/movie?api_key=9be5962f75cabd26c04eb4443674e0d2&with_genres=${data.Genreid}`)
+        if (res.status === 200) {
+            const data = res.data
+            return data;
+        } else {
+            return null
+        }
+    } catch (e) {
+        return { error: e.message }
+    }
+};
+
 const exportedObject = {
     getAllMovies,
-    getAllGenres
+    getAllGenres,
+    getMoviesByGenre
 };
 
 export default exportedObject;

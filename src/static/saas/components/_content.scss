@@ -1,42 +1,4 @@
-.content {
-    // width: 100%;
-    // height: 100vh;
-
-    &-card1 {
-        width: 100%;
-        height: auto;
-
-        // background-color: red;
-        &-image {
-            width: 100%;
-            /*width of your image*/
-            height: auto;
-            /*height of your image*/
-            // background-image: url('/card1.jpg');
-            margin: 0;
-            /* If you want no margin */
-            padding: 0;
-            /*if your want to padding */
-        }
-    }
-
-    &-card2 {
-        width: 100%;
-        height: auto;
-
-        &-image {
-            width: 100%;
-            /*width of your image*/
-            height: auto;
-            /*height of your image*/
-            // background-image: url('/card1.jpg');
-            margin: 0;
-            /* If you want no margin */
-            padding: 0;
-            /*if your want to padding */
-        }
-    }
-}
-.carousel-heigth{
-    height: 100%;
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: -1px 10px 39px 0px rgba(0, 0, 0, 0.8);
 }

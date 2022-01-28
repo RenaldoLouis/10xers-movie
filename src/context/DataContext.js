@@ -65,9 +65,27 @@ export const DataContextProvider = (props) => {
         setGenresData(mappedGenreData);
     }
 
+    const getMoviesBasedOnGenreFromApi = async () => {
+        const mappedMoviesByGenreData = [];
+        const dataMoviesByGenre = await GetApi.getMoviesByGenre();
+        if (!isEmpty(dataMoviesByGenre)) {
+            dataMoviesByGenre.results.forEach((data) => {
+                const moviesData = {
+                    title: data.title,
+                    description: data.overview,
+                    backdrop: "https://image.tmdb.org/t/p/w500" + data.backdrop_path,
+                    poster: "https://image.tmdb.org/t/p/w500" + data.poster_path
+                }
+                mappedMoviesByGenreData.push(moviesData);
+            })
+            setMoviesData(mappedMoviesByGenreData);
+        }
+    }
+
     useEffect(() => {
         getMoviesFromApi();
         getGenresFromApi();
+        getMoviesBasedOnGenreFromApi();
     }, [])
 
     const DataContextValue = {

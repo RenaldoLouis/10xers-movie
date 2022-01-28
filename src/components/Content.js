@@ -18,20 +18,27 @@ function Content() {
     const { moviesData, genresData } = useContext(DataContext);
     const responsive = {
         superLargeDesktop: {
-            // the naming can be any, depends on you.
-            breakpoint: { max: 4000, min: 3000 },
-            items: 5
+            breakpoint: { max: 4000, min: 2100 },
+            items: 6
         },
         desktop: {
-            breakpoint: { max: 3000, min: 1024 },
+            breakpoint: { max: 2100, min: 1800 },
             items: 5
         },
         tablet: {
-            breakpoint: { max: 1024, min: 464 },
-            items: 2
+            breakpoint: { max: 1800, min: 1441 },
+            items: 4
         },
         mobile: {
-            breakpoint: { max: 464, min: 0 },
+            breakpoint: { max: 1441, min: 1065 },
+            items: 3
+        },
+        mobileSmall: {
+            breakpoint: { max: 1065, min: 725 },
+            items: 2
+        },
+        mobileExtraSmall: {
+            breakpoint: { max: 725, min: 0 },
             items: 1
         }
     };
@@ -59,7 +66,7 @@ function Content() {
                     >
                         {!isEmpty(moviesData) ? moviesData.map((data, index) => {
                             return (
-                                <Card key={index} sx={{ maxWidth: 345 }}>
+                                <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
                                     <CardMedia
                                         component="img"
                                         alt={data.title}
