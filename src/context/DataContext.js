@@ -1,3 +1,5 @@
+import { isMuiElement } from "@mui/material";
+import { isEmpty } from "lodash";
 import React, {
     useState,
     createContext,
@@ -33,18 +35,33 @@ export const DataContextProvider = (props) => {
     }
 
     const getMoviesFromApi = async () => {
+        const mappedMoviesData = [];
         const dataMovies = await GetApi.getAllMovies();
-        setMoviesData(dataMovies);
+        if (!isEmpty(dataMovies)) {
+            dataMovies.results.forEach((data) => {
+                const moviesData = {
+                    title: data.title,
+                    description: data.overview,
+                    backdrop: "https://image.tmdb.org/t/p/w500" + data.backdrop_path,
+                    poster: "https://image.tmdb.org/t/p/w500" + data.poster_path
+                }
+                mappedMoviesData.push(moviesData);
+            })
+            setMoviesData(mappedMoviesData);
+        }
     }
+
     const getGenresFromApi = async () => {
         const mappedGenreData = [];
         const dataGenre = await GetApi.getAllGenres();
-        dataGenre.genres.forEach((data) => {
-            const genreData = {
-                genre: data.name
-            }
-            mappedGenreData.push(genreData);
-        });
+        if (!isEmpty(dataGenre)) {
+            dataGenre.genres.forEach((data) => {
+                const genreData = {
+                    genre: data.name
+                }
+                mappedGenreData.push(genreData);
+            });
+        }
         setGenresData(mappedGenreData);
     }
 
