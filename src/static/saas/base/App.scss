@@ -1,0 +1,169 @@
+html,
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+.Backdrop-loading {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 999;
+  left: 0%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.loader {
+  border: 12px solid #e3e3e3;
+  // border-top: 12px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+.loader-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* the slides */
+.slick-slide {
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+/* the parent */
+// .slick-list {
+//   margin: 0 -10px;
+// }
+
+
+.slick-slider {
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.slick-next {
+  right: 10rem;
+  z-index: 1000;
+}
+
+.slick-prev {
+  left: 10rem;
+  z-index: 1000;
+}
+
+.fullImage {
+  max-width: 100%;
+  height: 100%;
+}
+
+solid {
+  border-top: 3px solid #bbb;
+}
+
+.slick-slide {
+  @media(min-width:1332px) {
+    width: 520px !important;
+  }
+}
+
+.slick-list {
+  height: 100%;
+  width: 100%;
+}
+
+// .slick-slide img {
+//   height: 100%;
+//   width: 100%;
+// }
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.spaceBetweenContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #000000e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  // width: #{"clamp(50%, 700px, 90%)"};
+  width: clamp(50%, 700px, 90%) !important;
+  // height: #{"min(50%, 300px)"};
+  height: min(50%) !important;
+
+  margin: auto;
+  padding: 0 2rem;
+  border-radius: 12px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  top: auto !important;
+  left: auto !important;
+}
+
+.orange-gradient {
+  background: linear-gradient(red, yellow);
+}
+
+.green-gradient {
+  background: var(--gradient2);
+}

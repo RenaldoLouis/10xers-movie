@@ -1,0 +1,42 @@
+#navbar {
+    transition: all 0.5s ease;
+}
+
+.stickyHeader {
+    position: fixed;
+    width: 100%;
+    margin-top: 16px;
+    z-index: 1;
+}
+
+.flexgrow0 {
+    // animation: mymove 3s;
+    animation-fill-mode: forwards;
+    flex-grow: 0 !important;
+    transition: all 2s;
+}
+
+.flexgrow1 {
+    // animation: mymove 3s;
+    animation-fill-mode: forwards;
+    flex-grow: 1;
+    transition: all 2s;
+}
+
+.dissapearText {
+    animation: mymove 3s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes mymove {
+    from {
+        right: 0px;
+    }
+
+    to {
+        right: 200px;
+        // display: none;
+        // background-color: blue;
+        opacity: 0;
+    }
+}
