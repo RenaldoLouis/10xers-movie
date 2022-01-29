@@ -17,9 +17,8 @@ export const DataContextProvider = (props) => {
     const [cookie, setCookie] = useCookies(["token", "filter", "filterOverview"]);
     const [isLoading, setLoading] = useState(false);
     const [toastPopup, setToastPopup] = useState({});
-    const [selectedDetailData, setSelectedDetailData] = useState({})
-    const [moviesData, setMoviesData] = useState({})
-    const [genresData, setGenresData] = useState({})
+    const [moviesData, setMoviesData] = useState({});
+    const [genresData, setGenresData] = useState({});
 
     const toastify = (type, text) => {
         if (type === "success") {
@@ -57,6 +56,7 @@ export const DataContextProvider = (props) => {
         if (!isEmpty(dataGenre)) {
             dataGenre.genres.forEach((data) => {
                 const genreData = {
+                    id: data.id,
                     genre: data.name
                 }
                 mappedGenreData.push(genreData);
@@ -65,27 +65,9 @@ export const DataContextProvider = (props) => {
         setGenresData(mappedGenreData);
     }
 
-    const getMoviesBasedOnGenreFromApi = async () => {
-        const mappedMoviesByGenreData = [];
-        const dataMoviesByGenre = await GetApi.getMoviesByGenre();
-        if (!isEmpty(dataMoviesByGenre)) {
-            dataMoviesByGenre.results.forEach((data) => {
-                const moviesData = {
-                    title: data.title,
-                    description: data.overview,
-                    backdrop: "https://image.tmdb.org/t/p/w500" + data.backdrop_path,
-                    poster: "https://image.tmdb.org/t/p/w500" + data.poster_path
-                }
-                mappedMoviesByGenreData.push(moviesData);
-            })
-            setMoviesData(mappedMoviesByGenreData);
-        }
-    }
-
     useEffect(() => {
         getMoviesFromApi();
         getGenresFromApi();
-        getMoviesBasedOnGenreFromApi();
     }, [])
 
     const DataContextValue = {

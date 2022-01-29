@@ -12,10 +12,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { DataContext } from "../context/DataContext";
 import { isEmpty } from "lodash";
+import GetApi from "../api/GetApi";
 
 
 function Content() {
     const { moviesData, genresData } = useContext(DataContext);
+    const [moviesByGenre, setMoviesByGenre] = useState({});
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -42,10 +44,36 @@ function Content() {
             items: 1
         }
     };
+
+    const getMoviesBasedOnGenreFromApi = async (genreId) => {
+        const mappedMoviesByGenreData = [];
+        const dataMoviesByGenre = await GetApi.getMoviesByGenre(genreId);
+        if (!isEmpty(dataMoviesByGenre.results)) {
+            dataMoviesByGenre.results.forEach((data) => {
+                const moviesByGenreData = {
+                    id: data.id,
+                    genreId: data.genre_ids,
+                    title: data.title,
+                    description: data.overview,
+                    backdrop: "https://image.tmdb.org/t/p/w500" + data.backdrop_path,
+                    poster: "https://image.tmdb.org/t/p/w500" + data.poster_path
+                }
+                mappedMoviesByGenreData.push(moviesByGenreData);
+            });
+            setMoviesByGenre(mappedMoviesByGenreData);
+        }
+    }
+
+    useEffect(() => {
+        !isEmpty(genresData) && genresData.forEach((data, index) => {
+            getMoviesBasedOnGenreFromApi(data.id);
+        })
+    }, [genresData])
+
     return (
         <div >
             {/* <Container sx={{ mx: 0, my: 2 }}> */}
-            <Grid container spacing={2} sx={{ ml: 0 }}>
+            <Grid container spacing={2} sx={{ ml: 0, my: 1, mb: 3 }}>
                 <Grid item xs={12} md={12}>
                     <div>My favourite List</div>
                     <Carousel
@@ -77,18 +105,63 @@ function Content() {
                             )
                         }) :
                             <div>
-                                Emtpy data
+                                <b>Nothing here! Scroll to discover more </b>
                             </div>}
                     </Carousel>
                 </Grid>
                 {!isEmpty(genresData) ? genresData.map((data, index) => {
+                    let temparray = []
+                    if (!isEmpty(moviesByGenre)) {
+                        moviesByGenre.forEach((moviesData, index) => {
+                            const moviesDataGenreId = moviesData.genreId;
+                            if (moviesDataGenreId.includes(data.id)) {
+                                temparray.push(moviesData);
+                            }
+                        })
+                    }
                     return (
                         <Grid item key={index} xs={12} md={12}>
                             <div>{data.genre}</div>
+                            <Carousel
+                                swipeable={true}
+                                draggable={true}
+                                showDots={false}
+                                responsive={responsive}
+                                ssr={true} // means to render carousel on server-side.
+                                infinite={true}
+                                autoPlaySpeed={1000}
+                                keyBoardControl={true}
+                                customTransition="transform 500ms ease-in-out"
+                                transitionDuration={1000}
+                                containerClass="carousel-container carousel-heigth"
+                                dotListClass="custom-dot-list-style"
+                                itemClass="carousel-item-padding-40-px"
+                                removeArrowOnDeviceType={["tablet", "mobile"]}
+                            >
+                                {!isEmpty(temparray) ? temparray.map((data, index) => {
+                                    return (
+
+                                        <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
+                                            <CardMedia
+                                                component="img"
+                                                alt={data.title}
+                                                height="140"
+                                                image={data.backdrop}
+                                            />
+                                        </Card>
+
+                                    )
+                                }) :
+                                    <div>
+                                        <b>Nothing here! Scroll to discover more </b>
+                                    </div>}
+                            </Carousel>
                         </Grid>
                     )
                 }
-                ) : null}
+                ) : <Grid item xs={12} md={12}>
+                    <b>No Data</b>
+                </Grid>}
             </Grid>
             {/* </Container> */}
         </div>
