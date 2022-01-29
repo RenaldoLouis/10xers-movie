@@ -17,7 +17,7 @@ import GetApi from "../api/GetApi";
 
 function Content() {
     const { moviesData, genresData } = useContext(DataContext);
-    const [moviesByGenre, setMoviesByGenre] = useState({});
+    const [moviesByGenre, setMoviesByGenre] = useState([]);
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -45,9 +45,9 @@ function Content() {
         }
     };
 
-    const getMoviesBasedOnGenreFromApi = async (genreId) => {
+    const getMoviesBasedOnGenreFromApi = async (dataGenre) => {
         const mappedMoviesByGenreData = [];
-        const dataMoviesByGenre = await GetApi.getMoviesByGenre(genreId);
+        const dataMoviesByGenre = await GetApi.getMoviesByGenre(dataGenre.id);
         if (!isEmpty(dataMoviesByGenre.results)) {
             dataMoviesByGenre.results.forEach((data) => {
                 const moviesByGenreData = {
@@ -60,19 +60,18 @@ function Content() {
                 }
                 mappedMoviesByGenreData.push(moviesByGenreData);
             });
-            setMoviesByGenre(mappedMoviesByGenreData);
+            setMoviesByGenre(prevState => [...prevState, { genre: dataGenre.genre, data: mappedMoviesByGenreData }])
         }
     }
 
     useEffect(() => {
         !isEmpty(genresData) && genresData.forEach((data, index) => {
-            getMoviesBasedOnGenreFromApi(data.id);
+            getMoviesBasedOnGenreFromApi(data);
         })
     }, [genresData])
 
     return (
         <div >
-            {/* <Container sx={{ mx: 0, my: 2 }}> */}
             <Grid container spacing={2} sx={{ ml: 0, my: 1, mb: 3 }}>
                 <Grid item xs={12} md={12}>
                     <div>My favourite List</div>
@@ -109,15 +108,71 @@ function Content() {
                             </div>}
                     </Carousel>
                 </Grid>
-                {!isEmpty(genresData) ? genresData.map((data, index) => {
+
+                {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
+                    console.log("data", data)
+                    return (
+                        <Grid item key={index} xs={12} md={12}>
+                            <div>{data.genre}</div>
+                            <Carousel
+                                swipeable={true}
+                                draggable={true}
+                                showDots={false}
+                                responsive={responsive}
+                                ssr={true} // means to render carousel on server-side.
+                                infinite={true}
+                                autoPlaySpeed={1000}
+                                keyBoardControl={true}
+                                customTransition="transform 500ms ease-in-out"
+                                transitionDuration={1000}
+                                containerClass="carousel-container carousel-heigth"
+                                dotListClass="custom-dot-list-style"
+                                itemClass="carousel-item-padding-40-px"
+                                removeArrowOnDeviceType={["tablet", "mobile"]}
+                            >
+                                {data.data.map((insideData) => {
+                                    return (
+                                        <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
+                                            <CardMedia
+                                                component="img"
+                                                alt={insideData.title}
+                                                height="140"
+                                                image={insideData.backdrop}
+                                            />
+                                        </Card>
+                                    )
+                                })}
+
+
+                                {/* {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
+                                    // console.log("data", data)
+                                    return (
+                                        <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
+                                            <CardMedia
+                                                component="img"
+                                                alt={data.title}
+                                                height="140"
+                                                image={data.backdrop}
+                                            />
+                                        </Card>
+
+                                    )
+                                }) :
+                                    <div>
+                                        <b>Nothing here! Scroll to discover more </b>
+                                    </div>} */}
+                            </Carousel>
+                        </Grid>
+                    )
+                }
+                ) : <Grid item xs={12} md={12}>
+                    <b>No Data</b>
+                </Grid>}
+
+                {/* {!isEmpty(genresData) ? genresData.map((data, index) => {
                     let temparray = []
                     if (!isEmpty(moviesByGenre)) {
-                        moviesByGenre.forEach((moviesData, index) => {
-                            const moviesDataGenreId = moviesData.genreId;
-                            if (moviesDataGenreId.includes(data.id)) {
-                                temparray.push(moviesData);
-                            }
-                        })
+                        console.log("moviesByGenre", moviesByGenre);
                     }
                     return (
                         <Grid item key={index} xs={12} md={12}>
@@ -138,9 +193,9 @@ function Content() {
                                 itemClass="carousel-item-padding-40-px"
                                 removeArrowOnDeviceType={["tablet", "mobile"]}
                             >
-                                {!isEmpty(temparray) ? temparray.map((data, index) => {
+                                {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
+                                    // console.log("data", data)
                                     return (
-
                                         <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
                                             <CardMedia
                                                 component="img"
@@ -161,9 +216,8 @@ function Content() {
                 }
                 ) : <Grid item xs={12} md={12}>
                     <b>No Data</b>
-                </Grid>}
+                </Grid>} */}
             </Grid>
-            {/* </Container> */}
         </div>
     )
 }
