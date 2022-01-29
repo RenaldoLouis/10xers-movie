@@ -142,25 +142,6 @@ function Content() {
                                         </Card>
                                     )
                                 })}
-
-
-                                {/* {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
-                                    // console.log("data", data)
-                                    return (
-                                        <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
-                                            <CardMedia
-                                                component="img"
-                                                alt={data.title}
-                                                height="140"
-                                                image={data.backdrop}
-                                            />
-                                        </Card>
-
-                                    )
-                                }) :
-                                    <div>
-                                        <b>Nothing here! Scroll to discover more </b>
-                                    </div>} */}
                             </Carousel>
                         </Grid>
                     )
@@ -168,55 +149,6 @@ function Content() {
                 ) : <Grid item xs={12} md={12}>
                     <b>No Data</b>
                 </Grid>}
-
-                {/* {!isEmpty(genresData) ? genresData.map((data, index) => {
-                    let temparray = []
-                    if (!isEmpty(moviesByGenre)) {
-                        console.log("moviesByGenre", moviesByGenre);
-                    }
-                    return (
-                        <Grid item key={index} xs={12} md={12}>
-                            <div>{data.genre}</div>
-                            <Carousel
-                                swipeable={true}
-                                draggable={true}
-                                showDots={false}
-                                responsive={responsive}
-                                ssr={true} // means to render carousel on server-side.
-                                infinite={true}
-                                autoPlaySpeed={1000}
-                                keyBoardControl={true}
-                                customTransition="transform 500ms ease-in-out"
-                                transitionDuration={1000}
-                                containerClass="carousel-container carousel-heigth"
-                                dotListClass="custom-dot-list-style"
-                                itemClass="carousel-item-padding-40-px"
-                                removeArrowOnDeviceType={["tablet", "mobile"]}
-                            >
-                                {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
-                                    // console.log("data", data)
-                                    return (
-                                        <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
-                                            <CardMedia
-                                                component="img"
-                                                alt={data.title}
-                                                height="140"
-                                                image={data.backdrop}
-                                            />
-                                        </Card>
-
-                                    )
-                                }) :
-                                    <div>
-                                        <b>Nothing here! Scroll to discover more </b>
-                                    </div>}
-                            </Carousel>
-                        </Grid>
-                    )
-                }
-                ) : <Grid item xs={12} md={12}>
-                    <b>No Data</b>
-                </Grid>} */}
             </Grid>
         </div>
     )
