@@ -19,6 +19,8 @@ import { CommentsDisabledOutlined } from '@mui/icons-material';
 function Content() {
     const { moviesData, genresData } = useContext(DataContext);
     const [moviesByGenre, setMoviesByGenre] = useState([]);
+    const [favouriteListData, setFavouriteListData] = useState([]);
+    const [getStorageFlag, setGetStorageFlag] = useState(true);
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -73,7 +75,25 @@ function Content() {
 
     const saveFavourite = (dataStorage, id) => {
         localStorage.setItem("favourite" + id, dataStorage);
+        setGetStorageFlag(!getStorageFlag);
+        // getStorageData("favourite" + id);
     }
+
+    // const getStorageData = (key) => {
+    //     setFavouriteListData(prevState => [...prevState, localStorage.getItem(key)]);
+    // }
+
+    useEffect(() => {
+        if (!isEmpty(localStorage)) {
+            for (let i = 0; i < localStorage.length; i++) {
+                let number = i;
+                if (favouriteListData.includes(localStorage.getItem(localStorage.key(number))) === false) {
+                    setFavouriteListData(prevState => [...prevState, localStorage.getItem(localStorage.key(number))])
+                };
+                ;
+            }
+        }
+    }, [getStorageFlag])
 
     return (
         <div >
@@ -96,15 +116,15 @@ function Content() {
                         itemClass="carousel-item-padding-40-px"
                         removeArrowOnDeviceType={["tablet", "mobile"]}
                     >
-                        {!isEmpty(moviesData) ? moviesData.map((data, index) => {
+                        {!isEmpty(favouriteListData) ? favouriteListData.map((data, index) => {
 
                             return (
                                 <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
                                     <CardMedia
                                         component="img"
-                                        alt={data.title}
+                                        alt={index}
                                         height="140"
-                                        image={data.backdrop}
+                                        image={data}
                                     />
                                 </Card>
                             )
@@ -136,7 +156,6 @@ function Content() {
                                 removeArrowOnDeviceType={["tablet", "mobile"]}
                             >
                                 {data.data.map((insideData, index) => {
-                                    console.log("insideData", insideData)
                                     return (
                                         <Card
                                             className="card"
