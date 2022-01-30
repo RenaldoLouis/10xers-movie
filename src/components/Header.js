@@ -17,10 +17,10 @@ function Header() {
 
     return (
         <div>
-            <Box id="navbar" className='stickyHeader' sx={{ flexGrow: 1 }}>
+            <Box id="header" className='stickyHeader' sx={{ flexGrow: 1 }}>
                 <AppBar color="warning" position="static">
                     <Toolbar>
-                        <Typography style={{ cursor: "pointer" }} id="titleNavbar" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        <Typography style={{ cursor: "pointer" }} id="titleheader" variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             Movies
                         </Typography>
                         <div

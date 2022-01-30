@@ -13,7 +13,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { DataContext } from "../context/DataContext";
 import { isEmpty } from "lodash";
 import GetApi from "../api/GetApi";
-import { CommentsDisabledOutlined } from '@mui/icons-material';
+import { CommentsDisabledOutlined, ElevatorSharp } from '@mui/icons-material';
 
 
 function Content() {
@@ -21,6 +21,7 @@ function Content() {
     const [moviesByGenre, setMoviesByGenre] = useState([]);
     const [favouriteListData, setFavouriteListData] = useState([]);
     const [getStorageFlag, setGetStorageFlag] = useState(true);
+    const [firstTimeLoad, setFirstTimeLoad] = useState(true);
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -77,9 +78,23 @@ function Content() {
     }, [genresData])
 
     const saveFavourite = (dataStorage, id) => {
-        localStorage.setItem("favourite" + id, dataStorage);
+        localStorage.setItem("favourite" + id, [dataStorage, id]);
         setGetStorageFlag(!getStorageFlag);
         setAnimationIinput(id);
+    }
+    const deleteFavourite = (dataStorage, index) => {
+        toastify("success", "Movie Has been Removed From My List")
+        let deletedFromList = "";
+        for (let i = 0; i < localStorage.length; i++) {
+            let number = i;
+            let moviesPoster = localStorage.getItem(localStorage.key(number)).split(",");
+            if (moviesPoster[0] === dataStorage) {
+                deletedFromList = moviesPoster[1];
+            }
+        };
+        localStorage.removeItem("favourite" + deletedFromList, dataStorage);
+        setGetStorageFlag(!getStorageFlag);
+        setAnimationDelete(index);
     }
 
     const setAnimationIinput = (id) => {
@@ -91,20 +106,41 @@ function Content() {
             document.getElementById(id).classList.add("animate__zoomIn")
         }, 1500);
     }
+    const setAnimationDelete = (index) => {
+        document.getElementById("favouriteCard" + index).classList.remove("animate__bounceIn")
+        document.getElementById("favouriteCard" + index).classList.add("animate__zoomOutDown")
+
+        setTimeout(() => {
+            document.getElementById("favouriteCard" + index).classList.remove("animate__zoomOutDown")
+            document.getElementById("favouriteCard" + index).classList.add("animate__bounceIn")
+        }, 1500);
+    }
 
     useEffect(() => {
         if (!isEmpty(localStorage)) {
             for (let i = 0; i < localStorage.length; i++) {
                 let number = i;
-                if (favouriteListData.includes(localStorage.getItem(localStorage.key(number))) === false) {
-                    setFavouriteListData(prevState => [...prevState, localStorage.getItem(localStorage.key(number))])
-                } else if (favouriteListData.includes(localStorage.getItem(localStorage.key(number))) === true) {
+                let moviesPoster = localStorage.getItem(localStorage.key(number)).split(",");
+                if (favouriteListData.includes(moviesPoster[0]) === false) {
+                    if (!firstTimeLoad) {
+                        toastify("success", "Movie Has Been Added To My List")
+                    } else {
+                        setFirstTimeLoad(false);
+                    }
+                    setFavouriteListData(prevState => [...prevState, moviesPoster[0]])
+                } else if (favouriteListData.includes(moviesPoster[0]) === true) {
                     setTimeout(() => {
-                        toastify("error", "Movies Already Favourited")
+                        toastify("error", "Movie Already In My List")
                     }, 1);
                 };
             };
-        };
+        }
+        else if (isEmpty(localStorage)) {
+            setTimeout(() => {
+                setFavouriteListData([]);
+            }, 500);
+        }
+        ;
     }, [getStorageFlag])
 
 
@@ -130,10 +166,11 @@ function Content() {
                         removeArrowOnDeviceType={["tablet", "mobile"]}
                     >
                         {!isEmpty(favouriteListData) ? favouriteListData.map((data, index) => {
+                            console.log("data", data)
                             return (
                                 <Card
-                                    id="favouriteCard"
-                                    className="card animate__animated animate__bounceIn"
+                                    id={"favouriteCard" + index}
+                                    className="card animate__animated animate__bounceIn" //animate__zoomOutDown
                                     key={index}
                                     sx={{ maxWidth: 345, marginY: "10px" }}>
                                     <CardMedia
@@ -141,6 +178,7 @@ function Content() {
                                         alt={index}
                                         height="140"
                                         image={data}
+                                        onClick={() => deleteFavourite(data, index)}
                                     />
                                 </Card>
                             )
