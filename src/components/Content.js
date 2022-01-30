@@ -22,7 +22,6 @@ function Content() {
     const [favouriteListData, setFavouriteListData] = useState([]);
     const [getStorageFlag, setGetStorageFlag] = useState(true);
     const [deleteMovieFlag, setDeleteMovieFlag] = useState(false);
-    const [firstTimeLoad, setFirstTimeLoad] = useState(true);
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -79,6 +78,7 @@ function Content() {
     }, [genresData])
 
     const saveFavourite = (dataStorage, id) => {
+        toastify("success", "Movie Has Been Added To My List");
         localStorage.setItem("favourite" + id, [dataStorage, id]);
         setGetStorageFlag(!getStorageFlag);
         setAnimationIinput(id);
@@ -124,12 +124,6 @@ function Content() {
                 let number = i;
                 let moviesPoster = localStorage.getItem(localStorage.key(number)).split(",");
                 if (favouriteListData.includes(moviesPoster[0]) === false) {
-                    console.log("masuk1", localStorage.length)
-                    if (!firstTimeLoad) {
-                        toastify("success", "Movie Has Been Added To My List")
-                    } else {
-                        setFirstTimeLoad(false);
-                    }
                     setFavouriteListData(prevState => [...prevState, moviesPoster[0]])
                 }
                 else if (deleteMovieFlag) {
