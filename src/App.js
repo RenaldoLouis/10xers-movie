@@ -4,6 +4,10 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import { DataContextProvider } from './context/DataContext';
 import 'animate.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import LoadingScreen from './components/LoadingScreen';
+
 
 
 function App() {
@@ -20,6 +24,15 @@ function App() {
     <div className="App">
       <DataContextProvider>
         <ThemeProvider theme={darkTheme}>
+          <ToastContainer
+            position="bottom-right"
+            closeOnClick
+            pauseOnFocusLoss={false}
+            autoClose={2500}
+            pauseOnHover={false}
+            theme="colored"
+          />
+          <LoadingScreen></LoadingScreen>
           <Header></Header>
           <Content></Content>
           <Footer></Footer>

@@ -17,7 +17,7 @@ import { CommentsDisabledOutlined } from '@mui/icons-material';
 
 
 function Content() {
-    const { moviesData, genresData, toastify } = useContext(DataContext);
+    const { moviesData, genresData, toastify, setLoading } = useContext(DataContext);
     const [moviesByGenre, setMoviesByGenre] = useState([]);
     const [favouriteListData, setFavouriteListData] = useState([]);
     const [getStorageFlag, setGetStorageFlag] = useState(true);
@@ -65,6 +65,9 @@ function Content() {
             });
             setMoviesByGenre(prevState => [...prevState, { genre: dataGenre.genre, data: mappedMoviesByGenreData }])
         }
+        setTimeout(() => {
+            setLoading(false);
+        }, 3000);
     }
 
     useEffect(() => {
@@ -95,6 +98,10 @@ function Content() {
                 let number = i;
                 if (favouriteListData.includes(localStorage.getItem(localStorage.key(number))) === false) {
                     setFavouriteListData(prevState => [...prevState, localStorage.getItem(localStorage.key(number))])
+                } else if (favouriteListData.includes(localStorage.getItem(localStorage.key(number))) === true) {
+                    setTimeout(() => {
+                        toastify("error", "Movies Already Favourited")
+                    }, 1);
                 };
             };
         };
@@ -102,7 +109,7 @@ function Content() {
 
 
     return (
-        <div >
+        <div style={{ marginTop: "55px" }}>
             <Grid container spacing={2} sx={{ ml: 0, my: 1, mb: 3 }}>
                 <Grid item xs={12} md={12}>
                     <div>My favourite List</div>
@@ -165,7 +172,6 @@ function Content() {
                                 removeArrowOnDeviceType={["tablet", "mobile"]}
                             >
                                 {data.data.map((insideData, index) => {
-                                    console.log("insideData", insideData)
                                     return (
                                         <Card
                                             id={insideData.id}

@@ -17,7 +17,7 @@ function Header() {
 
     return (
         <div>
-            <Box id="navbar" sx={{ flexGrow: 1 }}>
+            <Box id="navbar" className='stickyHeader' sx={{ flexGrow: 1 }}>
                 <AppBar color="warning" position="static">
                     <Toolbar>
                         <Typography style={{ cursor: "pointer" }} id="titleNavbar" variant="h6" component="div" sx={{ flexGrow: 1 }}>

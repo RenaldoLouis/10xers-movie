@@ -15,7 +15,7 @@ export const DataContext = createContext({});
 
 export const DataContextProvider = (props) => {
     const [cookie, setCookie] = useCookies(["token", "filter", "filterOverview"]);
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(true);
     const [toastPopup, setToastPopup] = useState({});
     const [moviesData, setMoviesData] = useState({});
     const [genresData, setGenresData] = useState({});
