@@ -13,6 +13,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { DataContext } from "../context/DataContext";
 import { isEmpty } from "lodash";
 import GetApi from "../api/GetApi";
+import { CommentsDisabledOutlined } from '@mui/icons-material';
 
 
 function Content() {
@@ -70,6 +71,10 @@ function Content() {
         })
     }, [genresData])
 
+    const saveFavourite = (dataStorage, id) => {
+        localStorage.setItem("favourite" + id, dataStorage);
+    }
+
     return (
         <div >
             <Grid container spacing={2} sx={{ ml: 0, my: 1, mb: 3 }}>
@@ -92,6 +97,7 @@ function Content() {
                         removeArrowOnDeviceType={["tablet", "mobile"]}
                     >
                         {!isEmpty(moviesData) ? moviesData.map((data, index) => {
+
                             return (
                                 <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
                                     <CardMedia
@@ -110,7 +116,6 @@ function Content() {
                 </Grid>
 
                 {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
-                    console.log("data", data)
                     return (
                         <Grid item key={index} xs={12} md={12}>
                             <div>{data.genre}</div>
@@ -130,14 +135,19 @@ function Content() {
                                 itemClass="carousel-item-padding-40-px"
                                 removeArrowOnDeviceType={["tablet", "mobile"]}
                             >
-                                {data.data.map((insideData) => {
+                                {data.data.map((insideData, index) => {
+                                    console.log("insideData", insideData)
                                     return (
-                                        <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
+                                        <Card
+                                            className="card"
+                                            key={index}
+                                            sx={{ maxWidth: 345, marginY: "10px" }}>
                                             <CardMedia
                                                 component="img"
                                                 alt={insideData.title}
                                                 height="140"
                                                 image={insideData.backdrop}
+                                                onClick={() => saveFavourite(insideData.backdrop, insideData.id)}
                                             />
                                         </Card>
                                     )
