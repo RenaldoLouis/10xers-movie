@@ -13,7 +13,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { DataContext } from "../context/DataContext";
 import { isEmpty } from "lodash";
 import GetApi from "../api/GetApi";
-import { CommentsDisabledOutlined, ElevatorSharp } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function Content() {
@@ -22,6 +22,13 @@ function Content() {
     const [favouriteListData, setFavouriteListData] = useState([]);
     const [getStorageFlag, setGetStorageFlag] = useState(true);
     const [deleteMovieFlag, setDeleteMovieFlag] = useState(false);
+    const [onHover, setOnHover] = useState(false);
+    const displaygone = {
+        display: "none",
+    };
+    const displaycome = {
+        display: "",
+    };
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -71,12 +78,6 @@ function Content() {
         }, 3000);
     }
 
-    useEffect(() => {
-        !isEmpty(genresData) && genresData.forEach((data, index) => {
-            getMoviesBasedOnGenreFromApi(data);
-        })
-    }, [genresData])
-
     const saveFavourite = (dataStorage, id) => {
         toastify("success", "Movie Has Been Added To My List");
         localStorage.setItem("favourite" + id, [dataStorage, id]);
@@ -118,7 +119,22 @@ function Content() {
         }, 1500);
     }
 
+    const displayDeleteIcon = (status) => {
+        if (status === "hov") {
+            setOnHover(true);
+        } else {
+            setOnHover(false);
+        }
+    }
+
     useEffect(() => {
+        !isEmpty(genresData) && genresData.forEach((data, index) => {
+            getMoviesBasedOnGenreFromApi(data);
+        })
+    }, [genresData])
+
+    useEffect(() => {
+        setOnHover(false);
         if (!isEmpty(localStorage)) {
             for (let i = 0; i < localStorage.length; i++) {
                 let number = i;
@@ -142,10 +158,8 @@ function Content() {
             setTimeout(() => {
                 setFavouriteListData([]);
             }, 500);
-        }
-        ;
+        };
     }, [getStorageFlag, localStorage])
-
 
     return (
         <div style={{ marginTop: "55px" }}>
@@ -181,7 +195,11 @@ function Content() {
                                         height="140"
                                         image={data}
                                         onClick={() => deleteFavourite(data, index)}
+                                        onMouseOver={() => displayDeleteIcon("hov")}
+                                        onMouseOut={() => displayDeleteIcon("rev")}
+                                        onMouseLeave={() => displayDeleteIcon("rev")}
                                     />
+                                    <DeleteIcon style={{ display: onHover ? "" : "none" }}></DeleteIcon>
                                 </Card>
                             )
                         }) :
@@ -236,7 +254,7 @@ function Content() {
                     <b>No Data</b>
                 </Grid>}
             </Grid>
-        </div>
+        </div >
     )
 }
 
