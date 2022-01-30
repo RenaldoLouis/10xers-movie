@@ -21,6 +21,7 @@ function Content() {
     const [moviesByGenre, setMoviesByGenre] = useState([]);
     const [favouriteListData, setFavouriteListData] = useState([]);
     const [getStorageFlag, setGetStorageFlag] = useState(true);
+    const [deleteMovieFlag, setDeleteMovieFlag] = useState(false);
     const [firstTimeLoad, setFirstTimeLoad] = useState(true);
     const responsive = {
         superLargeDesktop: {
@@ -83,6 +84,7 @@ function Content() {
         setAnimationIinput(id);
     }
     const deleteFavourite = (dataStorage, index) => {
+        setDeleteMovieFlag(true);
         toastify("success", "Movie Has been Removed From My List")
         let deletedFromList = "";
         for (let i = 0; i < localStorage.length; i++) {
@@ -122,13 +124,20 @@ function Content() {
                 let number = i;
                 let moviesPoster = localStorage.getItem(localStorage.key(number)).split(",");
                 if (favouriteListData.includes(moviesPoster[0]) === false) {
+                    console.log("masuk1", localStorage.length)
                     if (!firstTimeLoad) {
                         toastify("success", "Movie Has Been Added To My List")
                     } else {
                         setFirstTimeLoad(false);
                     }
                     setFavouriteListData(prevState => [...prevState, moviesPoster[0]])
-                } else if (favouriteListData.includes(moviesPoster[0]) === true) {
+                }
+                else if (deleteMovieFlag) {
+                    setFavouriteListData([]);
+                    setDeleteMovieFlag(false);
+                    setGetStorageFlag(!getStorageFlag);
+                }
+                else if (favouriteListData.includes(moviesPoster[0]) === true) {
                     setTimeout(() => {
                         toastify("error", "Movie Already In My List")
                     }, 1);
@@ -141,7 +150,7 @@ function Content() {
             }, 500);
         }
         ;
-    }, [getStorageFlag])
+    }, [getStorageFlag, localStorage])
 
 
     return (
@@ -166,7 +175,6 @@ function Content() {
                         removeArrowOnDeviceType={["tablet", "mobile"]}
                     >
                         {!isEmpty(favouriteListData) ? favouriteListData.map((data, index) => {
-                            console.log("data", data)
                             return (
                                 <Card
                                     id={"favouriteCard" + index}

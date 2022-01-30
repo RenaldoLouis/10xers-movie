@@ -22,13 +22,9 @@ export const DataContextProvider = (props) => {
 
     const toastify = (type, text) => {
         if (type === "success") {
-            toast.success(text, {
-                toastId: "success"
-            });
+            toast.success(text);
         } else if (type === "error") {
-            toast.error(text, {
-                toastId: "error"
-            });
+            toast.error(text);
         }
         setToastPopup(!toastPopup);
     }
