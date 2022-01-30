@@ -17,7 +17,7 @@ import { CommentsDisabledOutlined } from '@mui/icons-material';
 
 
 function Content() {
-    const { moviesData, genresData } = useContext(DataContext);
+    const { moviesData, genresData, toastify } = useContext(DataContext);
     const [moviesByGenre, setMoviesByGenre] = useState([]);
     const [favouriteListData, setFavouriteListData] = useState([]);
     const [getStorageFlag, setGetStorageFlag] = useState(true);
@@ -76,12 +76,18 @@ function Content() {
     const saveFavourite = (dataStorage, id) => {
         localStorage.setItem("favourite" + id, dataStorage);
         setGetStorageFlag(!getStorageFlag);
-        // getStorageData("favourite" + id);
+        setAnimationIinput(id);
     }
 
-    // const getStorageData = (key) => {
-    //     setFavouriteListData(prevState => [...prevState, localStorage.getItem(key)]);
-    // }
+    const setAnimationIinput = (id) => {
+        document.getElementById(id).classList.remove("animate__zoomIn")
+        document.getElementById(id).classList.add("animate__zoomOutUp")
+
+        setTimeout(() => {
+            document.getElementById(id).classList.remove("animate__zoomOutUp")
+            document.getElementById(id).classList.add("animate__zoomIn")
+        }, 1500);
+    }
 
     useEffect(() => {
         if (!isEmpty(localStorage)) {
@@ -90,10 +96,10 @@ function Content() {
                 if (favouriteListData.includes(localStorage.getItem(localStorage.key(number))) === false) {
                     setFavouriteListData(prevState => [...prevState, localStorage.getItem(localStorage.key(number))])
                 };
-                ;
-            }
-        }
+            };
+        };
     }, [getStorageFlag])
+
 
     return (
         <div >
@@ -117,9 +123,12 @@ function Content() {
                         removeArrowOnDeviceType={["tablet", "mobile"]}
                     >
                         {!isEmpty(favouriteListData) ? favouriteListData.map((data, index) => {
-
                             return (
-                                <Card className="card" key={index} sx={{ maxWidth: 345, marginY: "10px" }}>
+                                <Card
+                                    id="favouriteCard"
+                                    className="card animate__animated animate__bounceIn"
+                                    key={index}
+                                    sx={{ maxWidth: 345, marginY: "10px" }}>
                                     <CardMedia
                                         component="img"
                                         alt={index}
@@ -156,9 +165,11 @@ function Content() {
                                 removeArrowOnDeviceType={["tablet", "mobile"]}
                             >
                                 {data.data.map((insideData, index) => {
+                                    console.log("insideData", insideData)
                                     return (
                                         <Card
-                                            className="card"
+                                            id={insideData.id}
+                                            className="card animate__animated animate__zoomIn" // animate__zoomOutUp
                                             key={index}
                                             sx={{ maxWidth: 345, marginY: "10px" }}>
                                             <CardMedia

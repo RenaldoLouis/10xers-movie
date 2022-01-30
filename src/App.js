@@ -3,6 +3,8 @@ import Content from './components/Content';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import { DataContextProvider } from './context/DataContext';
+import 'animate.css';
+
 
 function App() {
   const darkTheme = createTheme({
