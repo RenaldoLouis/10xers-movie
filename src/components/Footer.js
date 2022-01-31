@@ -5,19 +5,16 @@ import Link from '@mui/material/Link';
 
 function Footer() {
     return (
-        <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer" >
-            <Typography variant="h6" align="center" gutterBottom>
-                Footer
-            </Typography>
+        <Box sx={{ bgcolor: '#111112', p: 6 }} component="footer" >
             <Typography
                 variant="subtitle1"
                 align="center"
-                color="text.secondary"
+                color="white"
                 component="p"
             >
-                Something here to give the footer a purpose!
+                <b>Movies List Doest Not Own Any Of This Movies!</b>
             </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
+            <Typography variant="body2" color="white" align="center">
                 {'Copyright © '}
                 <Link color="inherit" href="https://mui.com/">
                     Movies List

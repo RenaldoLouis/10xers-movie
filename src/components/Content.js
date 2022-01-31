@@ -165,10 +165,10 @@ function Content() {
     }, [getStorageFlag])
 
     return (
-        <div style={{ marginTop: "255px" }}>
+        <div style={{ paddingTop: "255px" }}>
             <Grid container spacing={2} sx={{ ml: 0, my: 1, mb: 3 }}>
                 <Grid item xs={12} md={12}>
-                    <div>My favourite List</div>
+                    <div style={{ color: "white" }}>My favourite List</div>
                     <Carousel
                         swipeable={true}
                         draggable={true}
@@ -191,7 +191,10 @@ function Content() {
                                     id={"favouriteCard" + index}
                                     className="card animate__animated animate__bounceIn" //animate__zoomOutDown
                                     key={index}
-                                    sx={{ maxWidth: 345, marginY: "10px" }}>
+                                    sx={{ maxWidth: 345, marginY: "10px" }}
+                                    style={{ background: "white" }}
+                                >
+
                                     <CardMedia
                                         component="img"
                                         alt={index}
@@ -201,7 +204,7 @@ function Content() {
                                         onMouseOver={() => displayDeleteIcon("hov", index)}
                                         onMouseOut={() => displayDeleteIcon("rev", index)}
                                     />
-                                    <DeleteIcon id={"deleteIcon" + index} style={{ display: "none" }}></DeleteIcon>
+                                    <DeleteIcon id={"deleteIcon" + index} style={{ display: "none", color: "black" }}></DeleteIcon>
                                 </Card>
                             )
                         }) :
@@ -214,7 +217,7 @@ function Content() {
                 {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
                     return (
                         <Grid item key={index} xs={12} md={12} sx={{ my: 2 }}>
-                            <div>{data.genre}</div>
+                            <div style={{ color: "white" }}>{data.genre}</div>
                             <Carousel
                                 swipeable={true}
                                 draggable={true}

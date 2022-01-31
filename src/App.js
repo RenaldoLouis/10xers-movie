@@ -33,9 +33,11 @@ function App() {
             theme="colored"
           />
           <LoadingScreen></LoadingScreen>
-          <Header></Header>
-          <Content></Content>
-          <Footer></Footer>
+          <div style={{ background: "black" }}>
+            <Header></Header>
+            <Content></Content>
+            <Footer></Footer>
+          </div>
         </ThemeProvider>
       </DataContextProvider>
     </div>
