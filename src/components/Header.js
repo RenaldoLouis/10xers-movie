@@ -44,19 +44,17 @@ function Header() {
                         containerClass="carousel-container carousel-heigth"
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                        removeArrowOnDeviceType={["anyScreenSize"]}
                     >
                         {!isEmpty(moviesData) ?
                             moviesData.map((data, index) => {
                                 return (
-
-                                    <section style={{ width: "100%", height: "250px", backgroundImage: " url(" + data.backdrop + ")", backgroundSize: "cover", backgroundPosition: "50% 30%" }}>
+                                    <section key={index} style={{ width: "100%", height: "250px", backgroundImage: " url(" + data.backdrop + ")", backgroundSize: "cover", backgroundPosition: "50% 30%" }}>
                                         <div style={{ background: "linear-gradient(to right, #111 30%, transparent 70%)", width: "inherit", height: "inherit" }}></div>
-                                        <div class="top-left" style={{ paddingTop: "10px" }}>{data.title}</div>
+                                        <div className="top-left" style={{ paddingTop: "10px" }}>{data.title}</div>
                                     </section>
                                 )
                             })
-
                             :
                             <AppBar color="warning" position="static">
                                 <Toolbar>

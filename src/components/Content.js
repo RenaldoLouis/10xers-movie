@@ -1,14 +1,8 @@
-import React, { memo, useState, useContext, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
+import React, { useState, useContext, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { DataContext } from "../context/DataContext";
 import { isEmpty } from "lodash";
@@ -82,7 +76,9 @@ function Content() {
                 }
             };
         }
-        setGetStorageFlag(!getStorageFlag);
+        setTimeout(() => {
+            setGetStorageFlag(!getStorageFlag);
+        }, 500);
         setAnimationIinput(id);
 
     }
@@ -187,7 +183,7 @@ function Content() {
                         containerClass="carousel-container carousel-heigth"
                         dotListClass="custom-dot-list-style"
                         itemClass="carousel-item-padding-40-px"
-                        removeArrowOnDeviceType={["tablet", "mobile"]}
+                        removeArrowOnDeviceType={[]}
                     >
                         {!isEmpty(favouriteListData) ? favouriteListData.map((data, index) => {
                             return (
@@ -217,7 +213,7 @@ function Content() {
 
                 {!isEmpty(moviesByGenre) ? moviesByGenre.map((data, index) => {
                     return (
-                        <Grid item key={index} xs={12} md={12}>
+                        <Grid item key={index} xs={12} md={12} sx={{ my: 2 }}>
                             <div>{data.genre}</div>
                             <Carousel
                                 swipeable={true}
@@ -233,7 +229,7 @@ function Content() {
                                 containerClass="carousel-container carousel-heigth"
                                 dotListClass="custom-dot-list-style"
                                 itemClass="carousel-item-padding-40-px"
-                                removeArrowOnDeviceType={["tablet", "mobile"]}
+                                removeArrowOnDeviceType={[]}
                             >
                                 {data.data.map((insideData, index) => {
                                     return (
@@ -241,7 +237,7 @@ function Content() {
                                             id={insideData.id}
                                             className="card animate__animated animate__zoomIn" // animate__zoomOutUp
                                             key={index}
-                                            sx={{ maxWidth: 345, marginY: "10px" }}>
+                                            sx={{ maxWidth: 345, marginY: "20px" }}>
                                             <CardMedia
                                                 component="img"
                                                 alt={insideData.title}
