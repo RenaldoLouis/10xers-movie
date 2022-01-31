@@ -38,9 +38,10 @@ export const DataContextProvider = (props) => {
         const dataMovies = await GetApi.getAllMovies();
         if (!isEmpty(dataMovies)) {
             dataMovies.results.forEach((data) => {
-                console.log("data", data)
                 const moviesData = {
                     title: data.title,
+                    releaseDate: data.release_date,
+                    voteScore: data.vote_average,
                     description: data.overview,
                     backdrop: "https://image.tmdb.org/t/p/w1280" + data.backdrop_path,
                     poster: "https://image.tmdb.org/t/p/w500" + data.poster_path
