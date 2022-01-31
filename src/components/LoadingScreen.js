@@ -1,12 +1,8 @@
-import React, { useState, memo, useContext, useEffect } from "react";
+import React, { memo, useContext } from "react";
 import { DataContext } from "../context/DataContext";
-import { useCookies } from "react-cookie";
-
-import { isEmpty } from "lodash";
 
 function LoadingScreen() {
     const { isLoading } = useContext(DataContext);
-    const [cookie, setCookie] = useCookies(["tenant"]);
 
     const defaultColor = "rgb(22, 97, 190)";
 

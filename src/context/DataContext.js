@@ -4,14 +4,12 @@ import React, {
     createContext,
     useEffect,
 } from "react";
-import { useCookies } from "react-cookie";
 import { toast } from "react-toastify";
 import GetApi from "../api/GetApi"
 
 export const DataContext = createContext({});
 
 export const DataContextProvider = (props) => {
-    const [cookie, setCookie] = useCookies(["token", "filter", "filterOverview"]);
     const [isLoading, setLoading] = useState(true);
     const [toastPopup, setToastPopup] = useState({});
     const [moviesData, setMoviesData] = useState({});

@@ -1,4 +1,4 @@
-import React, { memo, useState, useContext, useEffect } from 'react';
+import React, { memo, useContext } from 'react';
 
 import { DataContext } from "../context/DataContext";
 import { css } from "@emotion/css";
@@ -12,14 +12,10 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 
 
 function Header() {
-    const { moviesData, toastify, setLoading } = useContext(DataContext);
+    const { moviesData } = useContext(DataContext);
     const responsive = {
         anyScreenSize: {
             breakpoint: { max: 4000, min: 0 },
@@ -28,7 +24,7 @@ function Header() {
     };
     return (
         <div>
-            <Box id="header" className='stickyHeader' sx={{ flexGrow: 1 }}>
+            <Box data-testid="header" id="header" className='stickyHeader' sx={{ flexGrow: 1 }}>
                 <div>
                     <Carousel
                         swipeable={true}
