@@ -65,7 +65,7 @@ function Content() {
         }, 8000);
     }
 
-    const saveFavourite = (dataStorage, id) => {
+    const saveFavourite = (dataStorage, id, genre) => {
         localStorage.setItem("favourite" + id, [dataStorage, id]);
         if (!isEmpty(localStorage)) {
             for (let i = 0; i < localStorage.length; i++) {
@@ -79,7 +79,7 @@ function Content() {
         setTimeout(() => {
             setGetStorageFlag(!getStorageFlag);
         }, 500);
-        setAnimationIinput(id);
+        setAnimationIinput(id, genre);
 
     }
     const deleteFavourite = (dataStorage, index) => {
@@ -98,13 +98,13 @@ function Content() {
         setAnimationDelete(index);
     }
 
-    const setAnimationIinput = (id) => {
-        document.getElementById(id).classList.remove("animate__zoomIn")
-        document.getElementById(id).classList.add("animate__zoomOutUp")
+    const setAnimationIinput = (id, genre) => {
+        document.getElementById(id + genre).classList.remove("animate__zoomIn")
+        document.getElementById(id + genre).classList.add("animate__zoomOutUp")
 
         setTimeout(() => {
-            document.getElementById(id).classList.remove("animate__zoomOutUp")
-            document.getElementById(id).classList.add("animate__zoomIn")
+            document.getElementById(id + genre).classList.remove("animate__zoomOutUp")
+            document.getElementById(id + genre).classList.add("animate__zoomIn")
         }, 1500);
     }
     const setAnimationDelete = (index) => {
@@ -234,7 +234,7 @@ function Content() {
                                 {data.data.map((insideData, index) => {
                                     return (
                                         <Card
-                                            id={insideData.id}
+                                            id={insideData.id + data.genre}
                                             className="card animate__animated animate__zoomIn" // animate__zoomOutUp
                                             key={index}
                                             sx={{ maxWidth: 345, marginY: "20px" }}>
@@ -243,7 +243,7 @@ function Content() {
                                                 alt={insideData.title}
                                                 height="140"
                                                 image={insideData.backdrop}
-                                                onClick={() => saveFavourite(insideData.backdrop, insideData.id)}
+                                                onClick={() => saveFavourite(insideData.backdrop, insideData.id, data.genre)}
                                             />
                                         </Card>
                                     )
