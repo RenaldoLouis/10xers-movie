@@ -28,7 +28,7 @@ function App() {
             position="bottom-right"
             closeOnClick
             pauseOnFocusLoss={false}
-            autoClose={2500}
+            autoClose={1500}
             pauseOnHover={false}
             theme="colored"
           />

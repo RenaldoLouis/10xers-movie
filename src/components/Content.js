@@ -141,6 +141,7 @@ function Content() {
     }, [genresData])
 
     useEffect(() => {
+        console.log('jalan')
         if (!isEmpty(localStorage)) {
             for (let i = 0; i < localStorage.length; i++) {
                 let number = i;
@@ -165,7 +166,7 @@ function Content() {
                 setFavouriteListData([]);
             }, 500);
         };
-    }, [getStorageFlag, localStorage])
+    }, [getStorageFlag])
 
     return (
         <div style={{ marginTop: "255px" }}>

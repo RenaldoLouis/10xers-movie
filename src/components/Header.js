@@ -18,7 +18,6 @@ import Container from '@mui/material/Container';
 
 function Header() {
     const { moviesData, toastify, setLoading } = useContext(DataContext);
-    console.log("moviesData", moviesData[0])
     return (
         <div>
             <Box id="header" className='stickyHeader' sx={{ flexGrow: 1 }}>
