@@ -17,12 +17,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function Content() {
-    const { moviesData, genresData, toastify, setLoading } = useContext(DataContext);
+    const { genresData, toastify, setLoading } = useContext(DataContext);
     const [moviesByGenre, setMoviesByGenre] = useState([]);
     const [favouriteListData, setFavouriteListData] = useState([]);
     const [getStorageFlag, setGetStorageFlag] = useState(true);
     const [deleteMovieFlag, setDeleteMovieFlag] = useState(false);
-    const [onHover, setOnHover] = useState(false);
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -123,13 +122,11 @@ function Content() {
 
     const displayDeleteIcon = (status, index) => {
         if (status === "hov") {
-            setOnHover(true)
             setTimeout(() => {
                 document.getElementById("deleteIcon" + index).style.display = ""
             }, 1);
 
         } else {
-            setOnHover(false)
             setTimeout(() => {
                 document.getElementById("deleteIcon" + index).style.display = "none"
             }, 1);
@@ -171,7 +168,7 @@ function Content() {
     }, [getStorageFlag, localStorage])
 
     return (
-        <div style={{ marginTop: "55px" }}>
+        <div style={{ marginTop: "255px" }}>
             <Grid container spacing={2} sx={{ ml: 0, my: 1, mb: 3 }}>
                 <Grid item xs={12} md={12}>
                     <div>My favourite List</div>
