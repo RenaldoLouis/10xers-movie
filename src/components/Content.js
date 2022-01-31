@@ -208,8 +208,8 @@ function Content() {
                                 </Card>
                             )
                         }) :
-                            <div>
-                                <b>Nothing here! Scroll to discover more </b>
+                            <div style={{ marginTop: "5px" }}>
+                                <b style={{ color: "white" }}>Nothing here! Scroll to discover more </b>
                             </div>}
                     </Carousel>
                 </Grid>
@@ -256,7 +256,7 @@ function Content() {
                     )
                 }
                 ) : <Grid item xs={12} md={12}>
-                    <b>No Data</b>
+                    <b style={{ color: "white" }}>No Data</b>
                 </Grid>}
             </Grid>
         </div >
