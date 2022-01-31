@@ -119,12 +119,19 @@ function Content() {
         }, 1500);
     }
 
-    const displayDeleteIcon = (status) => {
+    const displayDeleteIcon = (status, index) => {
         if (status === "hov") {
-            setOnHover(true);
+            document.getElementById("deleteIcon" + index).style.display = ""
         } else {
-            setOnHover(false);
+            document.getElementById("deleteIcon" + index).style.display = "none"
         }
+
+
+        // if (status === "hov") {
+        //     setOnHover(true);
+        // } else {
+        //     setOnHover(false);
+        // }
     }
 
     useEffect(() => {
@@ -195,11 +202,10 @@ function Content() {
                                         height="140"
                                         image={data}
                                         onClick={() => deleteFavourite(data, index)}
-                                        onMouseOver={() => displayDeleteIcon("hov")}
-                                        onMouseOut={() => displayDeleteIcon("rev")}
-                                        onMouseLeave={() => displayDeleteIcon("rev")}
+                                        onMouseOver={() => displayDeleteIcon("hov", index)}
+                                        onMouseOut={() => displayDeleteIcon("rev", index)}
                                     />
-                                    <DeleteIcon style={{ display: onHover ? "" : "none" }}></DeleteIcon>
+                                    <DeleteIcon id={"deleteIcon" + index} style={{ display: "none" }}></DeleteIcon>
                                 </Card>
                             )
                         }) :
