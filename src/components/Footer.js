@@ -12,7 +12,7 @@ function Footer() {
                 color="white"
                 component="p"
             >
-                <b>Movies List Doest Not Own Any Of This Movies!</b>
+                <b>Movies List Does Not Own Any Of This Movies!</b>
             </Typography>
             <Typography variant="body2" color="white" align="center">
                 {'Copyright © '}
