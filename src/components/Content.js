@@ -73,10 +73,18 @@ function Content() {
     }
 
     const saveFavourite = (dataStorage, id) => {
-        toastify("success", "Movie Has Been Added To My List");
         localStorage.setItem("favourite" + id, [dataStorage, id]);
         setGetStorageFlag(!getStorageFlag);
         setAnimationIinput(id);
+        if (!isEmpty(localStorage)) {
+            for (let i = 0; i < localStorage.length; i++) {
+                let number = i;
+                let moviesPoster = localStorage.getItem(localStorage.key(number)).split(",");
+                if (favouriteListData.includes(moviesPoster[0]) === false) {
+                    toastify("success", "Movie Has Been Added To My List");
+                }
+            };
+        }
     }
     const deleteFavourite = (dataStorage, index) => {
         setDeleteMovieFlag(true);
@@ -115,9 +123,17 @@ function Content() {
 
     const displayDeleteIcon = (status, index) => {
         if (status === "hov") {
-            document.getElementById("deleteIcon" + index).style.display = ""
+            setTimeout(() => {
+                console.log("jalan1")
+                document.getElementById("deleteIcon" + index).style.display = ""
+            }, 1);
+
         } else {
-            document.getElementById("deleteIcon" + index).style.display = "none"
+            setTimeout(() => {
+                console.log("jalan2")
+                document.getElementById("deleteIcon" + index).style.display = "none"
+            }, 1);
+
         }
     }
 
