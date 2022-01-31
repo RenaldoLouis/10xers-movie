@@ -23,12 +23,6 @@ function Content() {
     const [getStorageFlag, setGetStorageFlag] = useState(true);
     const [deleteMovieFlag, setDeleteMovieFlag] = useState(false);
     const [onHover, setOnHover] = useState(false);
-    const displaygone = {
-        display: "none",
-    };
-    const displaycome = {
-        display: "",
-    };
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 2100 },
@@ -125,13 +119,6 @@ function Content() {
         } else {
             document.getElementById("deleteIcon" + index).style.display = "none"
         }
-
-
-        // if (status === "hov") {
-        //     setOnHover(true);
-        // } else {
-        //     setOnHover(false);
-        // }
     }
 
     useEffect(() => {
