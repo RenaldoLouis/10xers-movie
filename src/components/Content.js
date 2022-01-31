@@ -123,14 +123,14 @@ function Content() {
 
     const displayDeleteIcon = (status, index) => {
         if (status === "hov") {
+            setOnHover(true)
             setTimeout(() => {
-                console.log("jalan1")
                 document.getElementById("deleteIcon" + index).style.display = ""
             }, 1);
 
         } else {
+            setOnHover(false)
             setTimeout(() => {
-                console.log("jalan2")
                 document.getElementById("deleteIcon" + index).style.display = "none"
             }, 1);
 
@@ -144,7 +144,6 @@ function Content() {
     }, [genresData])
 
     useEffect(() => {
-        setOnHover(false);
         if (!isEmpty(localStorage)) {
             for (let i = 0; i < localStorage.length; i++) {
                 let number = i;
@@ -182,7 +181,7 @@ function Content() {
                         showDots={false}
                         responsive={responsive}
                         ssr={true} // means to render carousel on server-side.
-                        infinite={true}
+                        infinite={false}
                         autoPlaySpeed={1000}
                         keyBoardControl={true}
                         customTransition="transform 500ms ease-in-out"
