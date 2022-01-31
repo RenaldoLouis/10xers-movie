@@ -23,10 +23,6 @@ function Header() {
             <Box id="header" className='stickyHeader' sx={{ flexGrow: 1 }}>
                 <div>
                     {!isEmpty(moviesData) ?
-                        // <Container maxWidth="md" sx={{ mx: 0, px: 0, ml: 0, pl: 0, pr: 0 }} style={{ paddingLeft: "0", paddingRight: "0" }}>
-                        //     <img src={moviesData[0].backdrop} alt="moviesBackdrop" width="100%" height="100%" />
-                        // </Container>
-
                         <div style={{ width: "100%", height: "250px" }}>
                             <img src={moviesData[0].backdrop} className='moviesBackdrop' alt="moviesBackdrop" width="100%" height="100%" />
                         </div>

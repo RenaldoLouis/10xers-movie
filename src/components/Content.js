@@ -68,13 +68,11 @@ function Content() {
         }
         setTimeout(() => {
             setLoading(false);
-        }, 3000);
+        }, 8000);
     }
 
     const saveFavourite = (dataStorage, id) => {
         localStorage.setItem("favourite" + id, [dataStorage, id]);
-        setGetStorageFlag(!getStorageFlag);
-        setAnimationIinput(id);
         if (!isEmpty(localStorage)) {
             for (let i = 0; i < localStorage.length; i++) {
                 let number = i;
@@ -84,6 +82,9 @@ function Content() {
                 }
             };
         }
+        setGetStorageFlag(!getStorageFlag);
+        setAnimationIinput(id);
+
     }
     const deleteFavourite = (dataStorage, index) => {
         setDeleteMovieFlag(true);
@@ -141,7 +142,6 @@ function Content() {
     }, [genresData])
 
     useEffect(() => {
-        console.log('jalan')
         if (!isEmpty(localStorage)) {
             for (let i = 0; i < localStorage.length; i++) {
                 let number = i;
