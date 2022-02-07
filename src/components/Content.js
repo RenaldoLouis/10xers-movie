@@ -67,7 +67,8 @@ function Content() {
 
     const saveFavourite = (dataStorage, id, genre) => {
         localStorage.setItem("favourite" + id, [dataStorage, id]);
-        if (!isEmpty(localStorage)) {
+
+        const promise = new Promise((resolve, reject) => {
             for (let i = 0; i < localStorage.length; i++) {
                 let number = i;
                 let moviesPoster = localStorage.getItem(localStorage.key(number)).split(",");
@@ -75,10 +76,29 @@ function Content() {
                     toastify("success", "Movie Has Been Added To My List");
                 }
             };
-        }
-        setTimeout(() => {
-            setGetStorageFlag(!getStorageFlag);
-        }, 500);
+            console.log("jalan1")
+            setTimeout(resolve, 100);
+        });
+        // if (!isEmpty(localStorage)) {
+        //     for (let i = 0; i < localStorage.length; i++) {
+        //         let number = i;
+        //         let moviesPoster = localStorage.getItem(localStorage.key(number)).split(",");
+        //         if (favouriteListData.includes(moviesPoster[0]) === false) {
+        //             toastify("success", "Movie Has Been Added To My List");
+        //         }
+        //     };
+        // }
+        console.log("jalan1.5", promise)
+        // Promise.all(promise).then(() => {
+        //     console.log("jalan2")
+        //     setGetStorageFlag(!getStorageFlag);
+        // });
+
+        Promise.all(setGetStorageFlag(!getStorageFlag))
+
+        // setTimeout(() => {
+        // setGetStorageFlag(!getStorageFlag);
+        // }, 500);
         setAnimationIinput(id, genre);
 
     }
